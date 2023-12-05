@@ -3,3 +3,15 @@
  (public_name utcp)
  (libraries cstruct fmt ipaddr ipaddr-cstruct logs randomconv duration mtime metrics base64)
  (instrumentation (backend bisect_ppx)))
+
+(rule
+ (target libdigest_bindings.a)
+ (deps
+  (:dep libdigest_bindings.%{context_name}.a))
+ (action
+  (copy %{dep} %{target})))
+
+(rule
+ (target libdigest_bindings.default.a)
+ (action
+  (copy stub/libdigest_bindings.a %{target})))
